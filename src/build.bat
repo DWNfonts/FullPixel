@@ -2,11 +2,15 @@
 title Making Font...
 echo Cleaning...
 del autogen.kbitx
+del *.png
+echo Turning Aseprite files to png...
+python3 ase2png.py
 echo Making BDF from images...
 set /a a=%random%
 python3 make.py > %a%.bdf
 echo Converting BDF to Kreative KBITX format...
-java -jar BitsNPicas.jar convertbitmap -f kbnp2 -o autogen.kbitx %a%.bdf
+java -jar ..\BitsNPicas.jar convertbitmap -f kbnp2 -o autogen.kbitx %a%.bdf
 del %a%.bdf
+del *.png
 choice /m "Build successfully. Do you want to check the font?"
 if not errorlevel 2 java -jar BitsNPicas.jar edit autogen.kbitx
